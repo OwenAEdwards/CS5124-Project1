@@ -1,0 +1,25 @@
+#visualization {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#histogram, #scatterplot {
+  width: 45%;
+  height: 400px;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.dot {
+  fill: red;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  shape-rendering: crispEdges;
+}

@@ -1,3 +1,6 @@
+import { renderHistogram } from "./histogram.js";
+import { renderScatterplot } from "./scatterplot.js";
+
 // Function to compute Job Density, excluding Puerto Rico
 function computeJobDensity(jobsData, peopleData) {
   // Filter the datasets for the specific attributes you need and exclude PR
@@ -58,13 +61,9 @@ Promise.all([
   const csvOutput = d3.csvFormat(computedData);
   console.log("Computed CSV Data:\n", csvOutput);
 
-  // Optionally, trigger a download of the CSV
-  // const blob = new Blob([csvOutput], { type: "text/csv;charset=utf-8;" });
-  // const url = URL.createObjectURL(blob);
-  // const a = document.createElement("a");
-  // a.href = url;
-  // a.download = "job_density.csv";
-  // a.click();
+  // Call visualization functions and pass data
+  renderHistogram(computedData);
+  renderScatterplot(computedData);
 }).catch(error => {
   console.error("Error loading CSV files:", error);
 });
