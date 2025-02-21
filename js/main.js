@@ -1,5 +1,7 @@
 import { renderHistogram } from "./histogram.js";
 import { renderScatterplot } from "./scatterplot.js";
+import PeopleChoroplethMap from './peopleChoroplethMap.js';
+import JobsChoroplethMap from "./jobsChoroplethMap.js";
 
 // Function to compute Job Density, excluding Puerto Rico
 function computeJobDensity(jobsData, peopleData) {
@@ -10,12 +12,12 @@ function computeJobDensity(jobsData, peopleData) {
   // Create a lookup map keyed by FIPS for each dataset
   const jobMap = new Map();
   jobsFiltered.forEach(d => {
-    jobMap.set(d.FIPS, d);
+    jobMap.set(String(d.FIPS), d);
   });
 
   const popMap = new Map();
   peopleFiltered.forEach(d => {
-    popMap.set(d.FIPS, d);
+    popMap.set(String(d.FIPS), d);
   });
 
   // Merge the data based on FIPS and compute job density (jobs per capita)
@@ -45,15 +47,10 @@ function computeJobDensity(jobsData, peopleData) {
 
 // Load CSV files using d3.csv, filtering out extra columns in Jobs.csv if needed
 Promise.all([
-  d3.csv("data/Jobs.csv", d => ({
-    FIPS: d.FIPS,
-    State: d.State,
-    County: d.County,
-    Attribute: d.Attribute,
-    Value: d.Value
-  })),
-  d3.csv("data/People.csv")
-]).then(([jobsData, peopleData]) => {
+  d3.csv("data/Jobs.csv"),
+  d3.csv("data/People.csv"),
+  d3.json("data/counties-10m.json")
+]).then(([jobsData, peopleData, geoData]) => {
   // Compute the new dataset
   const computedData = computeJobDensity(jobsData, peopleData);
 
@@ -61,9 +58,41 @@ Promise.all([
   const csvOutput = d3.csvFormat(computedData);
   console.log("Computed CSV Data:\n", csvOutput);
 
-  // Call visualization functions and pass data
+  // Call visualization functions and classes, passing data
   renderHistogram(computedData);
+
   renderScatterplot(computedData);
+
+  // Log the created geoJsonData
+  console.log("Geo Data:\n", geoData);
+
+  // Combine both datasets by adding the population density to the TopoJSON file
+  geoData.objects.counties.geometries.forEach(d => {
+    // console.log(d);
+    for (let i = 0; i < peopleData.length; i++) {
+      if (String(d.id) === peopleData[i].FIPS && peopleData[i].Attribute === "TotalPop2020") {
+        d.properties.pop = +peopleData[i].Value;
+      }
+    }
+  });
+
+  const peopleChoroplethMap = new PeopleChoroplethMap({
+    parentElement: "#peopleChoroplethMap"
+  }, geoData);
+
+  // Combine both datasets by adding the population density to the TopoJSON file
+  geoData.objects.counties.geometries.forEach(d => {
+    // console.log(d);
+    for (let i = 0; i < jobsData.length; i++) {
+      if (String(d.id) === jobsData[i].FIPS && jobsData[i].Attribute === "NumCivEmployed") {
+        d.properties.jobs = +jobsData[i].Value;
+      }
+    }
+  });
+
+  const jobsChoroplethMap = new JobsChoroplethMap({
+    parentElement: "#jobsChoroplethMap"
+  }, geoData);
 }).catch(error => {
   console.error("Error loading CSV files:", error);
 });
