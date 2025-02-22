@@ -1,19 +1,19 @@
-export function renderHistogram(computedData) {
+export function renderHistogram(_data, _attribute, _parent) {
   // Define margins and dimensions for the histogram
   const margin = { top: 20, right: 30, bottom: 50, left: 60 };
   const width = 800 - margin.left - margin.right;
   const height = 400 - margin.top - margin.bottom;
 
   // Create the SVG container
-  const svg = d3.select("#histogram").append("svg")
+  const svg = d3.select(_parent).append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Select the attribute to visualize (e.g., NumCivEmployed or JobDensity)
-  const attribute = "JobDensity";  // In this case, we're visualizing JobDensity
-  const data = computedData.map(d => d[attribute]);
+  const attribute = _attribute;  // In this case, we're visualizing JobDensity
+  const data = _data.filter(d => d.Attribute === attribute).map(d => d.Value);
 
   // Set up the X scale (linear scale based on data range)
   const x = d3.scaleLinear()

@@ -58,8 +58,11 @@ Promise.all([
   const csvOutput = d3.csvFormat(computedData);
   console.log("Computed CSV Data:\n", csvOutput);
 
+  console.log("Filtered jobs data: ", jobsData.filter(d => d.Attribute === "NumCivEmployed" && d.State !== "PR"));
+
   // Call visualization functions and classes, passing data
-  renderHistogram(computedData);
+  renderHistogram(peopleData.filter(d => d.Attribute === "TotalPop2020" && d.State !== "PR"), "TotalPop2020", "#peopleHistogram");
+  renderHistogram(jobsData.filter(d => d.Attribute === "NumCivEmployed" && d.State !== "PR"), "NumCivEmployed", "#jobsHistogram");
 
   renderScatterplot(computedData);
 
