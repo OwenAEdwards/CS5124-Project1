@@ -100,6 +100,13 @@ export default class PeopleChoroplethMap {
 
     // Tooltip handling
     vis.counties
+      .on("mouseover", function (event, d) {
+        d3.select(this).attr("fill", "orange");
+      })
+      .on("mouseout", function (event, d) {
+        const countyPop = d.properties.pop;
+        d3.select(this).attr("fill", countyPop != null ? vis.colorScale(countyPop) : "url(#lightstripe)");
+      })
       .on("mousemove", (event, d) => {
         const countyPop = d.properties.pop;
         const countyName = d.properties.name || "Unknown County";

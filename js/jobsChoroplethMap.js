@@ -100,6 +100,13 @@ export default class JobsChoroplethMap {
 
     // Tooltip handling
     vis.counties
+      .on("mouseover", function (event, d) {
+        d3.select(this).attr("fill", "orange");
+      })
+      .on("mouseout", function (event, d) {
+        const countyJobs = d.properties.jobs;
+        d3.select(this).attr("fill", countyJobs != null ? vis.colorScale(countyJobs) : "url(#lightstripe)");
+      })
       .on("mousemove", (event, d) => {
         const countyJobs = d.properties.jobs;
         const countyName = d.properties.name || "Unknown County";
