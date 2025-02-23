@@ -1,8 +1,18 @@
-export function renderScatterplot(computedData) {
+export function renderScatterplot(peopleData, jobsData) {
   // Define margins and dimensions for the scatterplot
-  const margin = { top: 20, right: 30, bottom: 50, left: 60 };
+  const margin = { top: 20, right: 30, bottom: 50, left: 100 };
   const width = 800 - margin.left - margin.right;
   const height = 400 - margin.top - margin.bottom;
+
+  // Join jobsData and peopleData by FIPS code
+const mergedData = peopleData.map(pd => {
+  const jd = jobsData.find(jd => jd.FIPS === pd.FIPS);
+  return jd ? { 
+    FIPS: pd.FIPS, 
+    TotalPop2020: +pd.Value, // Convert string to number
+    JobDensity: +jd.Value    // Convert string to number
+  } : null;
+}).filter(d => d !== null); // Remove unmatched entries
 
   // Create the SVG container
   const svgScatter = d3.select("#scatterplot").append("svg")
@@ -13,19 +23,19 @@ export function renderScatterplot(computedData) {
 
   // Set up the x-scale using TotalPop2020
   const xScatter = d3.scaleLinear()
-    .domain([0, d3.max(computedData, d => d.TotalPop2020)])
+    .domain([0, d3.max(mergedData, d => d.TotalPop2020)])
     .nice()
     .range([0, width]);
 
   // Set up the y-scale using JobDensity
   const yScatter = d3.scaleLinear()
-    .domain([0, d3.max(computedData, d => d.JobDensity)])
+    .domain([0, d3.max(mergedData, d => d.JobDensity)])
     .nice()
     .range([height, 0]);
 
   // Create dots for each data point
   svgScatter.selectAll(".dot")
-    .data(computedData)
+    .data(mergedData)
     .enter().append("circle")
     .attr("class", "dot")
     .attr("cx", d => xScatter(d.TotalPop2020))
