@@ -64,7 +64,7 @@ const mergedData = peopleData.map(pd => {
         .html(`
           <strong>${d.County}, ${d.State}</strong><br>
           Population: ${d.TotalPop2020.toLocaleString()}<br>
-          Job Density: ${d.JobDensity.toLocaleString()}
+          Total Jobs: ${d.JobDensity.toLocaleString()}
         `);
     })
     .on("mousemove", (event) => {
@@ -102,5 +102,5 @@ const mergedData = peopleData.map(pd => {
     .attr("y", -margin.left + 20)
     .attr("dy", "-0.5em")
     .attr("text-anchor", "middle")
-    .text("Job Density");
+    .text("Total Jobs");
 }
