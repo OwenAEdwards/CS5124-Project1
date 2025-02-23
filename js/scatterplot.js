@@ -7,8 +7,10 @@ export function renderScatterplot(peopleData, jobsData) {
   // Join jobsData and peopleData by FIPS code
 const mergedData = peopleData.map(pd => {
   const jd = jobsData.find(jd => jd.FIPS === pd.FIPS);
-  return jd ? { 
-    FIPS: pd.FIPS, 
+  return jd ? {
+    FIPS: pd.FIPS,
+    County: pd.County || "Unknown County",
+    State: pd.State || "Unknown State",
     TotalPop2020: +pd.Value, // Convert string to number
     JobDensity: +jd.Value    // Convert string to number
   } : null;
@@ -33,6 +35,22 @@ const mergedData = peopleData.map(pd => {
     .nice()
     .range([height, 0]);
 
+  // Create a tooltip div (only if it doesn't exist)
+  let tooltip = d3.select("#scatterplot-tooltip");
+  if (tooltip.empty()) {
+    tooltip = d3.select("body").append("div")
+      .attr("id", "scatterplot-tooltip")
+      .attr("class", "tooltip")
+      .style("position", "absolute")
+      .style("display", "none")
+      .style("background", "rgba(0, 0, 0, 0.7)")
+      .style("color", "#fff")
+      .style("padding", "5px 10px")
+      .style("border-radius", "5px")
+      .style("font-size", "12px")
+      .style("pointer-events", "none");
+  }
+
   // Create dots for each data point
   svgScatter.selectAll(".dot")
     .data(mergedData)
@@ -40,7 +58,22 @@ const mergedData = peopleData.map(pd => {
     .attr("class", "dot")
     .attr("cx", d => xScatter(d.TotalPop2020))
     .attr("cy", d => yScatter(d.JobDensity))
-    .attr("r", 5);
+    .attr("r", 5)
+    .on("mouseover", (event, d) => {
+      tooltip.style("display", "block")
+        .html(`
+          <strong>${d.County}, ${d.State}</strong><br>
+          Population: ${d.TotalPop2020.toLocaleString()}<br>
+          Job Density: ${d.JobDensity.toLocaleString()}
+        `);
+    })
+    .on("mousemove", (event) => {
+      tooltip.style("left", `${event.pageX + 10}px`)
+        .style("top", `${event.pageY + 10}px`);
+    })
+    .on("mouseout", () => {
+      tooltip.style("display", "none");
+    });
 
   // Add the x-axis
   svgScatter.append("g")
