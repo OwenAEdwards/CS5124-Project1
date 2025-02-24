@@ -11,22 +11,30 @@ export function renderHistogram(_data, _attribute, _parent) {
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-  // Select the attribute to visualize (e.g., NumCivEmployed or JobDensity)
-  const attribute = _attribute;  // In this case, we're visualizing JobDensity
-  const data = _data.filter(d => d.Attribute === attribute).map(d => d.Value);
+  // Select the attribute to visualize
+  const attribute = _attribute;
+  const data = _data.filter(d => d.Attribute === attribute).map(d => +d.Value);
 
-  // Set up the X scale (linear scale based on data range)
+  // Define min and max values
+  const minValue = d3.min(data);
+  const maxValue = d3.max(data) * 1.05;  // Add a 5% buffer for better spacing
+
+  // Set up the X scale (linear)
   const x = d3.scaleLinear()
-    .domain([0, d3.max(data)])
+    .domain([minValue, maxValue])
     .nice()
     .range([0, width]);
 
-  // Create histogram bins based on the selected attribute
+  // Define number of bins (ensure small values don't get lumped into one bin)
+  const numBins = Math.max(30, Math.sqrt(data.length));  // Dynamic bin count
+  const binWidth = (maxValue - minValue) / numBins;
+
+  // Create histogram bins
   const bins = d3.histogram()
     .domain(x.domain())
-    .thresholds(x.ticks(20))(data);  // Adjust number of bins
+    .thresholds(d3.range(minValue, maxValue, binWidth))(data);
 
-  // Set up the Y scale (counts of data points in each bin)
+  // Set up the Y scale (frequency count)
   const y = d3.scaleLinear()
     .domain([0, d3.max(bins, d => d.length)])
     .nice()
@@ -37,18 +45,19 @@ export function renderHistogram(_data, _attribute, _parent) {
     .data(bins)
     .enter().append("rect")
     .attr("class", "bar")
-    .attr("x", 1)
+    .attr("x", d => x(d.x0))
     .attr("transform", d => `translate(${x(d.x0)},${y(d.length)})`)
-    .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-    .attr("height", d => height - y(d.length));
+    .attr("width", d => Math.max(1, x(d.x1) - x(d.x0) - 1))
+    .attr("height", d => height - y(d.length))
+    .style("fill", "steelblue");
 
-  // Add X-axis to the histogram
+  // Add X-axis
   svg.append("g")
     .attr("class", "x-axis")
     .attr("transform", `translate(0,${height})`)
     .call(d3.axisBottom(x));
 
-  // Add Y-axis to the histogram
+  // Add Y-axis
   svg.append("g")
     .attr("class", "y-axis")
     .call(d3.axisLeft(y));
