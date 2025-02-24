@@ -59,6 +59,7 @@ const statesWithSelfNamedCounties = [
   "NY", // New York
   "OK", // Oklahoma
   "IA", // Iowa
+  "HI", // Hawaii
 ];
 
 export default { stateMap, statesWithSelfNamedCounties };
