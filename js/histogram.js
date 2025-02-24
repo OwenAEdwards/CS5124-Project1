@@ -13,7 +13,7 @@ export function renderHistogram(_data, _attribute, _parent) {
 
   // Select the attribute to visualize
   const attribute = _attribute;
-  const data = _data.filter(d => d.Attribute === attribute).map(d => +d.Value);
+  const data = _data.map(d => +d.Value);
 
   // Define min and max values
   const minValue = d3.min(data);
@@ -40,6 +40,21 @@ export function renderHistogram(_data, _attribute, _parent) {
     .nice()
     .range([height, 0]);
 
+  // Create tooltip
+  const tooltip = d3.select(_parent)
+    .append("div")
+    .style("position", "absolute")
+    .style("background", "rgba(0, 0, 0, 0.8)")
+    .style("color", "white")
+    .style("padding", "6px 10px")
+    .style("border-radius", "4px")
+    .style("font-size", "12px")
+    .style("pointer-events", "none")
+    .style("opacity", 0);
+  
+  // Format numbers with commas
+  const formatNumber = d3.format(",");
+
   // Append bars for the histogram
   svg.selectAll(".bar")
     .data(bins)
@@ -49,7 +64,25 @@ export function renderHistogram(_data, _attribute, _parent) {
     .attr("transform", d => `translate(${x(d.x0)},${y(d.length)})`)
     .attr("width", d => Math.max(1, x(d.x1) - x(d.x0) - 1))
     .attr("height", d => height - y(d.length))
-    .style("fill", "steelblue");
+    .style("fill", "steelblue")
+    .style("cursor", "pointer")
+    .on("mouseover", (event, d) => {
+      tooltip
+        .style("opacity", 1)
+        .html(`<strong>Range:</strong> ${formatNumber(Math.round(d.x0)) + " " + attribute} - ${formatNumber(Math.round(d.x1)) + " " + attribute}<br>
+               <strong>Frequency:</strong> ${formatNumber(d.length)} Counties`)
+        .style("left", `${event.pageX + 10}px`)
+        .style("top", `${event.pageY - 30}px`);
+    })
+    .on("mousemove", event => {
+      tooltip
+        .style("left", `${event.pageX + 10}px`)
+        .style("top", `${event.pageY - 30}px`);
+    })
+    .on("mouseout", () => {
+      tooltip.style("opacity", 0);
+    });
+
 
   // Add X-axis
   svg.append("g")

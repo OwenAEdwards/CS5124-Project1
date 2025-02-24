@@ -15,8 +15,8 @@ Promise.all([
   const filteredPeopleData = filterData(peopleData, "TotalPop2020", "PeopleData");
 
   // Call visualization functions and classes, passing data
-  renderHistogram(filteredPeopleData, "TotalPop2020", "#peopleHistogram");
-  renderHistogram(filteredJobsData, "NumCivEmployed", "#jobsHistogram");
+  renderHistogram(filteredPeopleData, "Population", "#peopleHistogram");
+  renderHistogram(filteredJobsData, "Jobs", "#jobsHistogram");
 
   renderScatterplot(
     filteredPeopleData,
