@@ -67,6 +67,7 @@ export function renderHistogram(_data, _attribute, _parent) {
     .style("fill", "steelblue")
     .style("cursor", "pointer")
     .on("mouseover", (event, d) => {
+      d3.select(event.currentTarget).style("fill", "orange"); // Change bar color to orange on hover
       tooltip
         .style("opacity", 1)
         .html(`<strong>Range:</strong> ${formatNumber(Math.round(d.x0)) + " " + attribute} - ${formatNumber(Math.round(d.x1)) + " " + attribute}<br>
@@ -80,6 +81,7 @@ export function renderHistogram(_data, _attribute, _parent) {
         .style("top", `${event.pageY - 30}px`);
     })
     .on("mouseout", () => {
+      d3.select(event.currentTarget).style("fill", "steelblue"); // Revert bar color back to blue
       tooltip.style("opacity", 0);
     });
 
