@@ -26,28 +26,28 @@ Promise.all([
   // Log the created geoJsonData
   console.log("Geo Data:\n", geoData);
 
-  // Combine both datasets by adding the population density to the TopoJSON file
+  // Create lookup maps for faster access
+  const peopleMap = new Map(filteredPeopleData.map(d => [d.FIPS, +d.Value]));
+  const jobsMap = new Map(filteredJobsData.map(d => [d.FIPS, +d.Value]));
+
+  // Iterate through counties and add the corresponding values
   geoData.objects.counties.geometries.forEach(d => {
-    for (let i = 0; i < filteredPeopleData.length; i++) {
-      if (String(d.id) === filteredPeopleData[i].FIPS) {
-        d.properties.pop = +filteredPeopleData[i].Value;
-      }
+    const fips = String(d.id);
+    
+    // Assign population data if available
+    if (peopleMap.has(fips)) {
+      d.properties.pop = peopleMap.get(fips);
+    }
+
+    // Assign jobs data if available
+    if (jobsMap.has(fips)) {
+      d.properties.jobs = jobsMap.get(fips);
     }
   });
 
   const peopleChoroplethMap = new PeopleChoroplethMap({
     parentElement: "#peopleChoroplethMap"
   }, geoData);
-
-  // Combine both datasets by adding the population density to the TopoJSON file
-  geoData.objects.counties.geometries.forEach(d => {
-    // console.log(d);
-    for (let i = 0; i < filteredJobsData.length; i++) {
-      if (String(d.id) === filteredJobsData[i].FIPS) {
-        d.properties.jobs = +filteredJobsData[i].Value;
-      }
-    }
-  });
 
   const jobsChoroplethMap = new JobsChoroplethMap({
     parentElement: "#jobsChoroplethMap"
