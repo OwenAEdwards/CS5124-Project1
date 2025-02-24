@@ -38,7 +38,8 @@ const mergedData = peopleData.map(pd => {
   // Create a tooltip div (only if it doesn't exist)
   let tooltip = d3.select("#scatterplot-tooltip");
   if (tooltip.empty()) {
-    tooltip = d3.select("body").append("div")
+    tooltip = d3.select("body")
+      .append("div")
       .attr("id", "scatterplot-tooltip")
       .attr("class", "tooltip")
       .style("position", "absolute")
@@ -50,6 +51,42 @@ const mergedData = peopleData.map(pd => {
       .style("font-size", "12px")
       .style("pointer-events", "none");
   }
+
+  // Compute regression line (y = mx + b)
+  function linearRegression(data) {
+    const n = data.length;
+    const sumX = d3.sum(data, d => d.TotalPop2020);
+    const sumY = d3.sum(data, d => d.JobDensity);
+    const sumXY = d3.sum(data, d => d.TotalPop2020 * d.JobDensity);
+    const sumX2 = d3.sum(data, d => d.TotalPop2020 ** 2);
+
+    const m = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX ** 2);
+    const b = (sumY - m * sumX) / n;
+
+    // Calculate R²
+    const meanY = sumY / n;
+    const ssTotal = d3.sum(data, d => (d.JobDensity - meanY) ** 2);
+    const ssResidual = d3.sum(data, d => (d.JobDensity - (m * d.TotalPop2020 + b)) ** 2);
+    const rSquared = 1 - ssResidual / ssTotal;
+
+    return { m, b, rSquared };
+  }
+
+  const { m, b, rSquared } = linearRegression(mergedData);
+
+  // Draw regression line
+  const xMin = d3.min(mergedData, d => d.TotalPop2020);
+  const xMax = d3.max(mergedData, d => d.TotalPop2020);
+  const yMin = m * xMin + b;
+  const yMax = m * xMax + b;
+
+  svgScatter.append("line")
+    .attr("x1", xScatter(xMin))
+    .attr("y1", yScatter(yMin))
+    .attr("x2", xScatter(xMax))
+    .attr("y2", yScatter(yMax))
+    .attr("stroke", "red")
+    .attr("stroke-width", 2);
 
   // Create dots for each data point
   svgScatter.selectAll(".dot")
@@ -75,6 +112,68 @@ const mergedData = peopleData.map(pd => {
       tooltip.style("display", "none");
     });
 
+  // Display the regression equation
+  svgScatter.append("text")
+    .attr("x", width + margin.right - 260)  // Position to the right outside of the scatterplot
+    .attr("y", margin.top + 100)
+    .attr("fill", "black")
+    .style("font-size", "12px")
+    .text(`Jobs = ${m.toFixed(2)} * Population + ${b.toFixed(2)}`);
+
+  // Display the R² value
+  svgScatter.append("text")
+    .attr("x", width + margin.right - 260)  // Same positioning for R²
+    .attr("y", margin.top + 120)
+    .attr("fill", "black")
+    .style("font-size", "12px")
+    .text(`R² = ${rSquared.toFixed(3)}`);
+
+  // Display the "What does this mean?" text
+  const whatDoesThisMeanText = svgScatter.append("text")
+    .attr("x", width + margin.right - 260)  // Position to the right outside of the scatterplot
+    .attr("y", margin.top + 140)
+    .attr("fill", "blue")  // Blue color for the text
+    .style("font-size", "14px")
+    .style("cursor", "pointer")
+    .text("What does this mean?");
+
+  // Simple tooltip (initially hidden) for "What does this mean?" text
+  let equationTooltip = d3.select("#equation-tooltip");
+  if (equationTooltip.empty()) {
+    equationTooltip = d3.select("body")
+      .append("div")
+      .attr("id", "equation-tooltip")
+      .attr("class", "tooltip")
+      .style("position", "absolute")
+      .style("background", "rgba(0, 0, 0, 0.8)")
+      .style("color", "#fff")
+      .style("padding", "10px")
+      .style("border-radius", "5px")
+      .style("display", "none")
+      .style("font-size", "12px")
+      .style("width", "250px")
+      .style("max-width", "90%")
+      .style("pointer-events", "none")
+      .html(`
+        <strong>Regression Equation:</strong><br>
+        The equation describes the relationship between population and total jobs. The slope (m) represents how much the total jobs increases for each unit increase in population. The intercept (b) is the value of total jobs when the population is zero.<br><br>
+        <strong>R²:</strong><br>
+        The R² value indicates how well the regression line fits the data. A value of 1 means a perfect fit, while a value closer to 0 suggests a weak relationship.
+      `);
+  }
+
+  // Show tooltip on hover
+  whatDoesThisMeanText
+  .on("mouseover", function(event) {
+    const bbox = this.getBoundingClientRect(); // Get the bounding box of the text element
+
+    equationTooltip
+      .style("left", `${bbox.left + window.scrollX}px`) // Account for scrolling
+      .style("top", `${bbox.top + window.scrollY + 15}px`) // Position above the text
+      .style("display", "block"); // Show the tooltip
+  })
+  .on("mouseout", () => equationTooltip.style("display", "none")); // Hide tooltip when mouse leaves
+
   // Add the x-axis
   svgScatter.append("g")
     .attr("class", "x-axis")
@@ -99,7 +198,7 @@ const mergedData = peopleData.map(pd => {
     .attr("class", "y-axis-label")
     .attr("transform", "rotate(-90)")
     .attr("x", -height / 2)
-    .attr("y", -margin.left + 20)
+    .attr("y", -margin.left + 35)
     .attr("dy", "-0.5em")
     .attr("text-anchor", "middle")
     .text("Total Jobs");
