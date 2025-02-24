@@ -96,7 +96,9 @@ const mergedData = peopleData.map(pd => {
     .attr("cx", d => xScatter(d.TotalPop2020))
     .attr("cy", d => yScatter(d.JobDensity))
     .attr("r", 5)
+    .style("fill", "steelblue")
     .on("mouseover", (event, d) => {
+      d3.select(event.currentTarget).style("fill", "orange"); // Change dot color to orange on hover
       tooltip.style("display", "block")
         .html(`
           <strong>${d.County}, ${d.State}</strong><br>
@@ -108,7 +110,8 @@ const mergedData = peopleData.map(pd => {
       tooltip.style("left", `${event.pageX + 10}px`)
         .style("top", `${event.pageY + 10}px`);
     })
-    .on("mouseout", () => {
+    .on("mouseout", (event) => {
+      d3.select(event.currentTarget).style("fill", "steelblue"); // Revert dot color back to blue
       tooltip.style("display", "none");
     });
 
