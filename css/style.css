@@ -5,6 +5,17 @@
   gap: 20px;
 }
 
+.radio-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 800px;
+}
+
+.radio-column {
+  flex: 1;
+}
+
 .histograms-container {
   display: flex;
   justify-content: space-between; /* Creates more space between histograms */

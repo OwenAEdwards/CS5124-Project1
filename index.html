@@ -20,6 +20,51 @@
         <p>Libraries Used: <a href="https://d3js.org/what-is-d3" target="_blank">D3.js</a>, <a href="https://github.com/topojson/topojson" target="_blank">TopoJSON</a></p>
     </section>
 
+    <section id="data-selection">
+        <h3>Select Data to Display</h3>
+        <div class="radio-container">
+            <!-- First Column: Civilian Labor Force -->
+            <div class="radio-column">
+                <h4>Number of Civilian Labor Force</h4>
+                <form id="labor-force-form">
+                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2007"> Number of Civilian Labor Force (2007)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborForce2008"> Number of Civilian Labor Force (2008)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborForce2009"> Number of Civilian Labor Force (2009)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2010"> Number of Civilian Labor Force (2010)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborForce2011"> Number of Civilian Labor Force (2011)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborForce2012"> Number of Civilian Labor Force (2012)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2013"> Number of Civilian Labor Force (2013)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2014"> Number of Civilian Labor Force (2014)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2015"> Number of Civilian Labor Force (2015)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2016"> Number of Civilian Labor Force (2016)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2017"> Number of Civilian Labor Force (2017)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2018"> Number of Civilian Labor Force (2018)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2019"> Number of Civilian Labor Force (2019)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborForce2020"> Number of Civilian Labor Force (2020)</label><br>
+                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2021" checked> Number of Civilian Labor Force (2021)</label><br>
+                </form>
+            </div>
+
+            <!-- Second Column: Population Estimates -->
+            <div class="radio-column">
+                <h4>Total Population</h4>
+                <form id="population-form">
+                    <label><input type="radio" name="population" value="TotalPopEst2010"> Total Population Estimate (2010)</label><br>
+                    <label><input type="radio" name="population" value="TotalPopEst2011"> Total Population Estimate (2011)</label><br>
+                    <label><input type="radio" name="population" value="TotalPopEst2012"> Total Population Estimate (2012)</label><br>
+                    <label><input type="radio" name="population" value="TotalPopEst2013"> Total Population Estimate (2013)</label><br>
+                    <label><input type="radio" name="population" value="TotalPopEst2014"> Total Population Estimate (2014)</label><br>
+                    <label><input type="radio" name="population" value="TotalPopEst2015"> Total Population Estimate (2015)</label><br>
+                    <label><input type="radio" name="population" value="TotalPopEst2016"> Total Population Estimate (2016)</label><br>
+                    <label><input type="radio" name="population" value="TotalPopEst2017"> Total Population Estimate (2017)</label><br>
+                    <label><input type="radio" name="population" value="TotalPopEst2018"> Total Population Estimate (2018)</label><br>
+                    <label><input type="radio" name="population" value="TotalPopEst2019"> Total Population Estimate (2019)</label><br>
+                    <label><input type="radio" name="population" value="TotalPop2020" checked> Total Population (Census 2020)</label><br>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <section id="visualization">
         <div class="histograms-container">
             <div class="histogram-container">
