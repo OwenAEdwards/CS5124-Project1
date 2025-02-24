@@ -11,7 +11,7 @@ Promise.all([
   d3.json("data/counties-10m.json")
 ]).then(([jobsData, peopleData, geoData]) => {
   // Call the function for jobsData and peopleData
-  const filteredJobsData = filterData(jobsData, "NumCivEmployed", "JobsData");
+  const filteredJobsData = filterData(jobsData, "NumCivLaborforce2021", "JobsData");
   const filteredPeopleData = filterData(peopleData, "TotalPop2020", "PeopleData");
 
   // Call visualization functions and classes, passing data

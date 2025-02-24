@@ -194,7 +194,7 @@ const mergedData = peopleData.map(pd => {
     .attr("x", width / 2)
     .attr("y", height + margin.bottom - 10)
     .attr("text-anchor", "middle")
-    .text("Total Population 2020");
+    .text("Total Population");
   
   // Add y-axis label
   svgScatter.append("text")
