@@ -5,15 +5,21 @@
   gap: 20px;
 }
 
-.radio-container {
+.dropdown-container {
   display: flex;
   justify-content: space-between;
   gap: 20px;
   max-width: 800px;
 }
 
-.radio-column {
+.dropdown-column {
   flex: 1;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
 }
 
 .histograms-container {

@@ -88,13 +88,13 @@ Promise.all([
   updateVisualizations();
 
   // Event listener for radio button changes
-  document.getElementById("labor-force-form").addEventListener("change", (event) => {
+  document.getElementById("labor-force-dropdown").addEventListener("change", (event) => {
     selectedJobsAttr = event.target.value;
     console.log("Selected Jobs Attribute:", selectedJobsAttr);
     updateVisualizations();
   });
 
-  document.getElementById("population-form").addEventListener("change", (event) => {
+  document.getElementById("population-dropdown").addEventListener("change", (event) => {
     selectedPeopleAttr = event.target.value;
     console.log("Selected Population Attribute:", selectedPeopleAttr);
     updateVisualizations();

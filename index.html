@@ -22,48 +22,48 @@
 
     <section id="data-selection">
         <h3>Select Data to Display</h3>
-        <div class="radio-container">
-            <!-- First Column: Civilian Labor Force -->
-            <div class="radio-column">
+        <div class="dropdown-container">
+            <!-- Civilian Labor Force Dropdown -->
+            <div class="dropdown-column">
                 <h4>Number of Civilian Labor Force</h4>
-                <form id="labor-force-form">
-                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2007"> Number of Civilian Labor Force (2007)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborForce2008"> Number of Civilian Labor Force (2008)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborForce2009"> Number of Civilian Labor Force (2009)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2010"> Number of Civilian Labor Force (2010)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborForce2011"> Number of Civilian Labor Force (2011)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborForce2012"> Number of Civilian Labor Force (2012)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2013"> Number of Civilian Labor Force (2013)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2014"> Number of Civilian Labor Force (2014)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2015"> Number of Civilian Labor Force (2015)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2016"> Number of Civilian Labor Force (2016)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2017"> Number of Civilian Labor Force (2017)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2018"> Number of Civilian Labor Force (2018)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2019"> Number of Civilian Labor Force (2019)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborForce2020"> Number of Civilian Labor Force (2020)</label><br>
-                    <label><input type="radio" name="laborForce" value="NumCivLaborforce2021" checked> Number of Civilian Labor Force (2021)</label><br>
-                </form>
+                <select id="labor-force-dropdown">
+                    <option value="NumCivLaborforce2007">2007</option>
+                    <option value="NumCivLaborForce2008">2008</option>
+                    <option value="NumCivLaborForce2009">2009</option>
+                    <option value="NumCivLaborforce2010">2010</option>
+                    <option value="NumCivLaborForce2011">2011</option>
+                    <option value="NumCivLaborForce2012">2012</option>
+                    <option value="NumCivLaborforce2013">2013</option>
+                    <option value="NumCivLaborforce2014">2014</option>
+                    <option value="NumCivLaborforce2015">2015</option>
+                    <option value="NumCivLaborforce2016">2016</option>
+                    <option value="NumCivLaborforce2017">2017</option>
+                    <option value="NumCivLaborforce2018">2018</option>
+                    <option value="NumCivLaborforce2019">2019</option>
+                    <option value="NumCivLaborForce2020">2020</option>
+                    <option value="NumCivLaborforce2021" selected>2021</option>
+                </select>
             </div>
-
-            <!-- Second Column: Population Estimates -->
-            <div class="radio-column">
+    
+            <!-- Total Population Dropdown -->
+            <div class="dropdown-column">
                 <h4>Total Population</h4>
-                <form id="population-form">
-                    <label><input type="radio" name="population" value="TotalPopEst2010"> Total Population Estimate (2010)</label><br>
-                    <label><input type="radio" name="population" value="TotalPopEst2011"> Total Population Estimate (2011)</label><br>
-                    <label><input type="radio" name="population" value="TotalPopEst2012"> Total Population Estimate (2012)</label><br>
-                    <label><input type="radio" name="population" value="TotalPopEst2013"> Total Population Estimate (2013)</label><br>
-                    <label><input type="radio" name="population" value="TotalPopEst2014"> Total Population Estimate (2014)</label><br>
-                    <label><input type="radio" name="population" value="TotalPopEst2015"> Total Population Estimate (2015)</label><br>
-                    <label><input type="radio" name="population" value="TotalPopEst2016"> Total Population Estimate (2016)</label><br>
-                    <label><input type="radio" name="population" value="TotalPopEst2017"> Total Population Estimate (2017)</label><br>
-                    <label><input type="radio" name="population" value="TotalPopEst2018"> Total Population Estimate (2018)</label><br>
-                    <label><input type="radio" name="population" value="TotalPopEst2019"> Total Population Estimate (2019)</label><br>
-                    <label><input type="radio" name="population" value="TotalPop2020" checked> Total Population (Census 2020)</label><br>
-                </form>
+                <select id="population-dropdown">
+                    <option value="TotalPopEst2010">2010 (Estimate)</option>
+                    <option value="TotalPopEst2011">2011 (Estimate)</option>
+                    <option value="TotalPopEst2012">2012 (Estimate)</option>
+                    <option value="TotalPopEst2013">2013 (Estimate)</option>
+                    <option value="TotalPopEst2014">2014 (Estimate)</option>
+                    <option value="TotalPopEst2015">2015 (Estimate)</option>
+                    <option value="TotalPopEst2016">2016 (Estimate)</option>
+                    <option value="TotalPopEst2017">2017 (Estimate)</option>
+                    <option value="TotalPopEst2018">2018 (Estimate)</option>
+                    <option value="TotalPopEst2019">2019 (Estimate)</option>
+                    <option value="TotalPop2020" selected>2020 Census</option>
+                </select>
             </div>
         </div>
-    </section>
+    </section>    
 
     <section id="visualization">
         <div class="histograms-container">
