@@ -1,56 +1,151 @@
-#visualization {
+header {
+  text-align: center;
+  padding: 5px 0;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 10px; /* Space between h1 and h2 */
+}
+
+header h1 {
+  font-size: 18px;
+  margin: 0; /* Remove extra margin */
+}
+
+header h2 {
+  font-size: 14px;
+  margin: 0; /* Remove extra margin */
+  font-weight: normal;
+}
+
+#about-project-and-data-selection-container {
+  display: flex; /* Place the two sections side by side */
+  justify-content: space-between;
+  gap: 20px; /* Space between the sections */
+  margin: 10px 0;
+}
+
+#about-project,
+#data-selection {
+  font-size: 13px;
+  flex: 1; /* Make the sections take equal width */
+  max-width: 48%; /* Optional: limit width of each section */
+}
+
+#about-project {
+  text-align: left;
+}
+
+#about-project h3 {
+  font-size: 14px;
+  margin: 0 0 5px 0;
+}
+
+#about-project p {
+  line-height: 1.1;
+}
+
+#data-selection {
+  text-align: left;
+}
+
+#data-selection h3 {
+  font-size: 14px;
+  margin-bottom: 5px;
 }
 
 .dropdown-container {
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  max-width: 800px;
+  gap: 20px;  /* Space between dropdowns */
 }
 
 .dropdown-column {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dropdown-column h4 {
+  font-size: 12px;
+  margin-bottom: 2px;
 }
 
 select {
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
+  font-size: 12px;
+  padding: 2px;
+  width: 110px;
+}
+
+
+#visualization {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column */
+  grid-template-rows: auto auto; /* Two rows: One for .container, one for .maps-container */
+  gap: 2px;
+  width: 90vw;
+  height: 75vh;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  grid-template-rows: 1fr; /* Single row that fills height */
+  gap: 5px;
+  height: 100%; /* Ensure full height is used */
+  padding: 0;
+  margin: 0;
+}
+
+.histograms-container,
+.scatterplot-container {
+  margin: 0;
+  padding: 0;
 }
 
 .histograms-container {
   display: flex;
-  justify-content: space-between; /* Creates more space between histograms */
-  gap: 40px; /* Increase spacing between histograms */
-  width: 90%; /* Reduce overall width to prevent crowding */
+  flex-direction: row;
+  width: 100%;
+  height: 100%; /* Ensure it fills its parent */
+  gap: 10px;
 }
 
 .histogram-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 48%; /* Reduce width slightly to prevent collision */
+  width: 50%; /* Each histogram takes up half */
+  height: 100%; /* Ensure it fills histograms-container */
 }
 
 .histogram-container h4 {
-  text-align: center;
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+#peopleHistogram, 
+#jobsHistogram {
+  width: 100%;
+  height: 100%;
 }
 
 #peopleHistogram svg, 
 #jobsHistogram svg {
   width: 100%;
-  height: 400px;
+  height: 100%;
+}
+
+.scatterplot-container {
+  width: 100%;
+  height: 100%; /* Ensure full height */
 }
 
 #scatterplot {
-  width: 45%;
-  height: 400px;
+  position: relative;
+}
+
+#scatterplot svg {
+  transform: scaleX(0.8); /* Scale the width by 80% */
+  transform-origin: center center; /* Keep scaling centered */
 }
 
 .axis path,
@@ -61,10 +156,11 @@ select {
 
 #peopleChoroplethMap,
 #jobsChoroplethMap {
-  width: 100%;
-  height: 500px;
+  max-width: 500px;
+  height: 250px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin: 0 auto;
 }
 
 /* Choropleth Map Styles */
@@ -72,6 +168,8 @@ select {
 #jobsChoroplethMap svg {
   width: 100%;
   height: 100%;
+  transform: scale(0.8); /* Scale down both width and height by 80% */
+  transform-origin: center center; /* Keep scaling centered */
 }
 
 .center-container {
@@ -110,13 +208,12 @@ select {
   position: absolute;
   display: none;
   background: #fff;
-  box-shadow: 3px 3px 3px 0px rgb(92 92 92 / 0.5);
+  box-shadow: 3px 3px 3px 0px rgba(92, 92, 92, 0.5);
   border: 1px solid #ddd;
   font-size: 12px;
   font-weight: 500;
-  padding: 8px;
-  min-width: 160px;
-  color: #333;
+  padding: 6px;
+  min-width: 140px;
 }
 
 .tooltip-title {
@@ -131,20 +228,30 @@ select {
 
 .maps-container {
   display: flex;
+  flex-direction: row; /* Make maps sit side by side */
   justify-content: center;
-  gap: 20px;
+  align-items: center;
   width: 100%;
+  height: 35vh;
+  padding: 0;
+  margin: 0;
 }
 
 .map-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 45%;
+  flex: 1; /* Each takes up half of .maps-container */
+  height: 80%;
+  max-width: 50%;
 }
 
 .map-container h4 {
   text-align: center;
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+#peopleHistogram,
+#jobsHistogram,
+#scatterplot {
+  margin: 0;
+  padding: 0;
 }

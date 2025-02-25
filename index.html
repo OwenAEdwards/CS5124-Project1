@@ -2,90 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Wealth and Job Concentration Disparity</title>
+    <title>Population and Job Concentration Disparity</title>
     <link rel="icon" href="data:;base64,iVBORwOKGO=" />
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>    
 
     <header>
-        <h1>My D3 Visualization Project: Wealth and Job Concentration Disparity</h1>
+        <h1>My D3 Visualization Project: Population and Job Concentration Disparity</h1>
         <h2>By Owen Edwards</h2>
     </header>
 
-    <section>
-        <h3>About This Project</h3>
-        <p>This project visualizes data using <strong>D3.js</strong>, a JavaScript library for creating dynamic and interactive data visualizations.</p>
-        <p>Data Sources: <a href="https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america" target="_blank">The USDA Atlas of Rural and Small-Town America </a>, <a href="https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json" target="_blank">TopoJSON's counties-10m.json</a></p>
-        <p>Libraries Used: <a href="https://d3js.org/what-is-d3" target="_blank">D3.js</a>, <a href="https://github.com/topojson/topojson" target="_blank">TopoJSON</a></p>
-    </section>
+    <div id="about-project-and-data-selection-container">
+        <section id="about-project">
+            <h3>About This Project</h3>
+            <p>
+                This project visualizes data using <strong>D3.js</strong>, a JavaScript library for creating dynamic and interactive data visualizations.
+                Data Sources: <a href="https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america" target="_blank">The USDA Atlas of Rural and Small-Town America </a>, <a href="https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json" target="_blank">TopoJSON's counties-10m.json</a>.
+                Libraries Used: <a href="https://d3js.org/what-is-d3" target="_blank">D3.js</a>, <a href="https://github.com/topojson/topojson" target="_blank">TopoJSON</a>.
+            </p>
+        </section>
 
-    <section id="data-selection">
-        <h3>Select Data to Display</h3>
-        <div class="dropdown-container">
-            <!-- Civilian Labor Force Dropdown -->
-            <div class="dropdown-column">
-                <h4>Number of Civilian Labor Force</h4>
-                <select id="labor-force-dropdown">
-                    <option value="NumCivLaborforce2007">2007</option>
-                    <option value="NumCivLaborForce2008">2008</option>
-                    <option value="NumCivLaborForce2009">2009</option>
-                    <option value="NumCivLaborforce2010">2010</option>
-                    <option value="NumCivLaborForce2011">2011</option>
-                    <option value="NumCivLaborForce2012">2012</option>
-                    <option value="NumCivLaborforce2013">2013</option>
-                    <option value="NumCivLaborforce2014">2014</option>
-                    <option value="NumCivLaborforce2015">2015</option>
-                    <option value="NumCivLaborforce2016">2016</option>
-                    <option value="NumCivLaborforce2017">2017</option>
-                    <option value="NumCivLaborforce2018">2018</option>
-                    <option value="NumCivLaborforce2019">2019</option>
-                    <option value="NumCivLaborForce2020">2020</option>
-                    <option value="NumCivLaborforce2021" selected>2021</option>
-                </select>
+        <section id="data-selection">
+            <h3>Select Data to Display</h3>
+            <div class="dropdown-container">
+                <!-- Civilian Labor Force Dropdown -->
+                <div class="dropdown-column">
+                    <h4>Number of Civilian Labor Force</h4>
+                    <select id="labor-force-dropdown">
+                        <option value="NumCivLaborforce2007">2007</option>
+                        <option value="NumCivLaborForce2008">2008</option>
+                        <option value="NumCivLaborForce2009">2009</option>
+                        <option value="NumCivLaborforce2010">2010</option>
+                        <option value="NumCivLaborForce2011">2011</option>
+                        <option value="NumCivLaborForce2012">2012</option>
+                        <option value="NumCivLaborforce2013">2013</option>
+                        <option value="NumCivLaborforce2014">2014</option>
+                        <option value="NumCivLaborforce2015">2015</option>
+                        <option value="NumCivLaborforce2016">2016</option>
+                        <option value="NumCivLaborforce2017">2017</option>
+                        <option value="NumCivLaborforce2018">2018</option>
+                        <option value="NumCivLaborforce2019">2019</option>
+                        <option value="NumCivLaborForce2020">2020</option>
+                        <option value="NumCivLaborforce2021" selected>2021</option>
+                    </select>
+                </div>
+        
+                <!-- Total Population Dropdown -->
+                <div class="dropdown-column">
+                    <h4>Total Population</h4>
+                    <select id="population-dropdown">
+                        <option value="TotalPopEst2010">2010 (Estimate)</option>
+                        <option value="TotalPopEst2011">2011 (Estimate)</option>
+                        <option value="TotalPopEst2012">2012 (Estimate)</option>
+                        <option value="TotalPopEst2013">2013 (Estimate)</option>
+                        <option value="TotalPopEst2014">2014 (Estimate)</option>
+                        <option value="TotalPopEst2015">2015 (Estimate)</option>
+                        <option value="TotalPopEst2016">2016 (Estimate)</option>
+                        <option value="TotalPopEst2017">2017 (Estimate)</option>
+                        <option value="TotalPopEst2018">2018 (Estimate)</option>
+                        <option value="TotalPopEst2019">2019 (Estimate)</option>
+                        <option value="TotalPop2020" selected>2020 Census</option>
+                    </select>
+                </div>
             </div>
-    
-            <!-- Total Population Dropdown -->
-            <div class="dropdown-column">
-                <h4>Total Population</h4>
-                <select id="population-dropdown">
-                    <option value="TotalPopEst2010">2010 (Estimate)</option>
-                    <option value="TotalPopEst2011">2011 (Estimate)</option>
-                    <option value="TotalPopEst2012">2012 (Estimate)</option>
-                    <option value="TotalPopEst2013">2013 (Estimate)</option>
-                    <option value="TotalPopEst2014">2014 (Estimate)</option>
-                    <option value="TotalPopEst2015">2015 (Estimate)</option>
-                    <option value="TotalPopEst2016">2016 (Estimate)</option>
-                    <option value="TotalPopEst2017">2017 (Estimate)</option>
-                    <option value="TotalPopEst2018">2018 (Estimate)</option>
-                    <option value="TotalPopEst2019">2019 (Estimate)</option>
-                    <option value="TotalPop2020" selected>2020 Census</option>
-                </select>
-            </div>
-        </div>
-    </section>    
+        </section>
+    </div>
 
     <section id="visualization">
-        <div class="histograms-container">
-            <div class="histogram-container">
-                <h4>Population Histogram</h4>
-                <div id="peopleHistogram"></div> <!-- For the people histogram -->
+        <div class="container">
+            <div class="histograms-container">
+                <div class="histogram-container">
+                    <h4>Population Histogram</h4>
+                    <div id="peopleHistogram"></div> <!-- For the people histogram -->
+                </div>
+                <div class="histogram-container">
+                    <h4>Job Histogram</h4>
+                    <div id="jobsHistogram"></div> <!-- For the jobs histogram -->
+                </div>
             </div>
-            <div class="histogram-container">
-                <h4>Job Histogram</h4>
-                <div id="jobsHistogram"></div> <!-- For the jobs histogram -->
+            <div class="scatterplot-container">
+                <div id="scatterplot"></div> <!-- For the scatterplot of correlation -->
             </div>
         </div>
-        <div id="scatterplot"></div> <!-- For the scatterplot of correlation -->
         <div class="maps-container">
-        <div class="map-container">
-            <h4>Population Distribution</h4>
-            <div id="peopleChoroplethMap"></div> <!-- People Choropleth Map -->
+            <div class="map-container">
+                <h4>Population Distribution</h4>
+                <div id="peopleChoroplethMap"></div> <!-- People Choropleth Map -->
+            </div>
+            <div class="map-container">
+                <h4>Job Concentration</h4>
+                <div id="jobsChoroplethMap"></div>   <!-- Jobs Choropleth Map -->
+            </div>
         </div>
-        <div class="map-container">
-            <h4>Job Concentration</h4>
-            <div id="jobsChoroplethMap"></div>   <!-- Jobs Choropleth Map -->
-        </div>
+
         <svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <defs>
                 <pattern id="lightstripe" patternUnits="userSpaceOnUse" width="5" height="5">

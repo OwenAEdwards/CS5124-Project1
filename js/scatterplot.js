@@ -2,7 +2,7 @@ export function renderScatterplot(peopleData, jobsData) {
   // Define margins and dimensions for the scatterplot
   const margin = { top: 20, right: 30, bottom: 50, left: 100 };
   const width = 800 - margin.left - margin.right;
-  const height = 400 - margin.top - margin.bottom;
+  const height = 225 - margin.top - margin.bottom;
 
   // Join jobsData and peopleData by FIPS code
 const mergedData = peopleData.map(pd => {
@@ -118,7 +118,7 @@ const mergedData = peopleData.map(pd => {
   // Display the regression equation
   svgScatter.append("text")
     .attr("x", width + margin.right - 260)  // Position to the right outside of the scatterplot
-    .attr("y", margin.top + 100)
+    .attr("y", margin.top + 60)
     .attr("fill", "black")
     .style("font-size", "12px")
     .text(`Jobs = ${m.toFixed(2)} * Population + ${b.toFixed(2)}`);
@@ -126,7 +126,7 @@ const mergedData = peopleData.map(pd => {
   // Display the R² value
   svgScatter.append("text")
     .attr("x", width + margin.right - 260)  // Same positioning for R²
-    .attr("y", margin.top + 120)
+    .attr("y", margin.top + 80)
     .attr("fill", "black")
     .style("font-size", "12px")
     .text(`R² = ${rSquared.toFixed(3)}`);
@@ -134,7 +134,7 @@ const mergedData = peopleData.map(pd => {
   // Display the "What does this mean?" text
   const whatDoesThisMeanText = svgScatter.append("text")
     .attr("x", width + margin.right - 260)  // Position to the right outside of the scatterplot
-    .attr("y", margin.top + 140)
+    .attr("y", margin.top + 100)
     .attr("fill", "blue")  // Blue color for the text
     .style("font-size", "14px")
     .style("cursor", "pointer")

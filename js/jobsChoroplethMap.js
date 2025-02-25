@@ -4,7 +4,7 @@ export default class JobsChoroplethMap {
       parentElement: _config.parentElement,
       containerWidth: _config.containerWidth || 1000,
       containerHeight: _config.containerHeight || 500,
-      margin: _config.margin || { top: 10, right: 10, bottom: 10, left: 10 },
+      margin: _config.margin || { top: 10, right: 10, bottom: 0, left: 10 },
       tooltipPadding: 10,
       legendBottom: 50,
       legendLeft: 50,
