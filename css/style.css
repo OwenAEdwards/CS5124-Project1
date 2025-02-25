@@ -73,9 +73,8 @@ header h2 {
 select {
   font-size: 12px;
   padding: 2px;
-  width: 110px;
+  width: 120px;
 }
-
 
 #visualization {
   display: grid;
