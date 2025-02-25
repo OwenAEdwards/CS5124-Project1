@@ -1,3 +1,4 @@
+/* ===== Header Styles ===== */
 header {
   text-align: center;
   padding: 5px 0;
@@ -18,6 +19,7 @@ header h2 {
   font-weight: normal;
 }
 
+/* ===== About Project & Data Selection Section ===== */
 #about-project-and-data-selection-container {
   display: flex; /* Place the two sections side by side */
   justify-content: space-between;
@@ -32,6 +34,7 @@ header h2 {
   max-width: 48%; /* Optional: limit width of each section */
 }
 
+/* ===== About Project Styling ===== */
 #about-project {
   text-align: left;
 }
@@ -45,6 +48,7 @@ header h2 {
   line-height: 1.1;
 }
 
+/* ===== Data Selection Project Styling ===== */
 #data-selection {
   text-align: left;
 }
@@ -76,6 +80,7 @@ select {
   width: 120px;
 }
 
+/* ===== Visualization Project Section ===== */
 #visualization {
   display: grid;
   grid-template-columns: 1fr; /* Single column */
@@ -87,7 +92,8 @@ select {
   margin: 0;
 }
 
-.container {
+/* ===== Histogram & Scatterplot Project Section ===== */
+.histograms-and-scatterplot-container {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
   grid-template-rows: 1fr; /* Single row that fills height */
@@ -98,11 +104,15 @@ select {
 }
 
 .histograms-container,
-.scatterplot-container {
+.scatterplot-container,
+#peopleHistogram,
+#jobsHistogram,
+#scatterplot {
   margin: 0;
   padding: 0;
 }
 
+/* ===== Data Selection Project Styling ===== */
 .histograms-container {
   display: flex;
   flex-direction: row;
@@ -133,6 +143,7 @@ select {
   height: 100%;
 }
 
+/* ===== Scatterplot Project Styling ===== */
 .scatterplot-container {
   width: 100%;
   height: 100%; /* Ensure full height */
@@ -147,6 +158,7 @@ select {
   transform-origin: center center; /* Keep scaling centered */
 }
 
+/* ===== Choropleth Project Styling ===== */
 .axis path,
 .axis line {
   fill: none;
@@ -162,7 +174,6 @@ select {
   margin: 0 auto;
 }
 
-/* Choropleth Map Styles */
 #peopleChoroplethMap svg,
 #jobsChoroplethMap svg {
   width: 100%;
@@ -246,11 +257,4 @@ select {
   text-align: center;
   font-size: 14px;
   margin-bottom: 2px;
-}
-
-#peopleHistogram,
-#jobsHistogram,
-#scatterplot {
-  margin: 0;
-  padding: 0;
 }
