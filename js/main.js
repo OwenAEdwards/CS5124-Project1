@@ -44,6 +44,26 @@ Promise.all([
     d3.select("#peopleChoroplethMap").selectAll("*").remove();
     d3.select("#jobsChoroplethMap").selectAll("*").remove();
 
+    // Extract the year from the jobs attribute using a regex
+    const jobsYear = selectedJobsAttr.match(/\d{4}$/)[0]; // This gets the last 4 digits (the year)
+
+    // Extract the year from the people attribute using a regex
+    const peopleYear = selectedPeopleAttr.match(/\d{4}$/)[0]; // This gets the last 4 digits (the year)
+
+    // Update titles dynamically based on selected year for Histograms
+    d3.select("#peopleHistogramTitle")
+    .text(`${peopleYear} Population Histogram`);
+
+    d3.select("#jobsHistogramTitle")
+    .text(`${jobsYear} Job Histogram`);
+
+    // Update titles dynamically based on selected year for Choropleth Maps
+    d3.select("#peopleChoroplethMapTitle")
+    .text(`${peopleYear} Population Distribution`);
+
+    d3.select("#jobsChoroplethMapTitle")
+    .text(`${jobsYear} Job Concentration`);
+
     // Call visualization functions and classes, passing data
     renderHistogram(selectedPeopleData, "Population", "#peopleHistogram");
     renderHistogram(selectedJobsData, "Jobs", "#jobsHistogram");

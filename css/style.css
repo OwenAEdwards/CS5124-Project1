@@ -129,6 +129,8 @@ select {
 .histogram-container h4 {
   font-size: 14px;
   margin-bottom: 2px;
+  text-align: center; /* Center the text */
+  width: 100%; /* Ensure the container takes the full width */
 }
 
 #peopleHistogram, 
