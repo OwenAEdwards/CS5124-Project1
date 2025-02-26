@@ -1,6 +1,6 @@
 export function renderHistogram(_data, _attribute, _parent) {
   // Define margins and dimensions for the histogram
-  const margin = { top: 20, right: 30, bottom: 0, left: 60 };
+  const margin = { top: 20, right: 30, bottom: 15, left: 60 };
   const width = 800 - margin.left - margin.right;
   const height = 225 - margin.top - margin.bottom;
 
