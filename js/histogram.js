@@ -100,8 +100,8 @@ export function renderHistogram(_data, _attribute, _parent) {
   // Add X-axis label
   svg.append("text")
     .attr("class", "x-axis-label")
-    .attr("x", width / 2)
-    .attr("y", height + margin.bottom - 10)
+    .attr("x", width / 2 - 175)
+    .attr("y", height + margin.bottom + 20)
     .attr("text-anchor", "middle")
     .text(attribute);
 
@@ -110,7 +110,7 @@ export function renderHistogram(_data, _attribute, _parent) {
     .attr("class", "y-axis-label")
     .attr("transform", "rotate(-90)")
     .attr("x", -height / 2)
-    .attr("y", -margin.left + 10)
+    .attr("y", -margin.left + 11)
     .attr("text-anchor", "middle")
     .text("Frequency");
 }
