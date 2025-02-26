@@ -153,22 +153,34 @@ select {
   position: relative;
 }
 
-#scatterplot svg {
-  transform: scaleX(0.8); /* Scale the width by 80% */
-  transform-origin: center center; /* Keep scaling centered */
+/* ===== Choropleth Project Styling ===== */
+.maps-container {
+  display: flex;
+  flex-direction: row; /* Make maps sit side by side */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 35vh;
+  padding: 0;
+  margin: 0;
 }
 
-/* ===== Choropleth Project Styling ===== */
-.axis path,
-.axis line {
-  fill: none;
-  shape-rendering: crispEdges;
+.map-container {
+  flex: 1; /* Each takes up half of .maps-container */
+  height: 80%;
+  max-width: 50%;
+}
+
+.map-container h4 {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 2px;
 }
 
 #peopleChoroplethMap,
 #jobsChoroplethMap {
-  max-width: 500px;
-  height: 250px;
+  max-width: 700px;
+  height: 300px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin: 0 auto;
@@ -178,7 +190,7 @@ select {
 #jobsChoroplethMap svg {
   width: 100%;
   height: 100%;
-  transform: scale(0.8); /* Scale down both width and height by 80% */
+  transform: scaleX(1.2); /* Scale down both width and height by 80% */
   transform-origin: center center; /* Keep scaling centered */
 }
 
@@ -189,6 +201,12 @@ select {
 .background {
   fill: none;
   pointer-events: all;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  shape-rendering: crispEdges;
 }
 
 #states {
@@ -234,27 +252,4 @@ select {
 
 #counties .inactive {
   fill: #aaa;
-}
-
-.maps-container {
-  display: flex;
-  flex-direction: row; /* Make maps sit side by side */
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 35vh;
-  padding: 0;
-  margin: 0;
-}
-
-.map-container {
-  flex: 1; /* Each takes up half of .maps-container */
-  height: 80%;
-  max-width: 50%;
-}
-
-.map-container h4 {
-  text-align: center;
-  font-size: 14px;
-  margin-bottom: 2px;
 }
